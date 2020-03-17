@@ -2,3 +2,6 @@
 /.idea/**
 *.iml
 out/
+
+# java.class files
+*.class
