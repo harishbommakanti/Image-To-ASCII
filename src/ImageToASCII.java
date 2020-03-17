@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class App
+public class ImageToASCII
 {
     private static int width;
     private static int height;
