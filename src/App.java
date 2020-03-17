@@ -40,8 +40,10 @@ public class App
         //now, for some reason, need to flip 90 degrees clockwise and rotate horizontally
         characterMatrix = rotate90degCW(characterMatrix);
 
+        //then, need to rotate it horizontally
+        /*characterMatrix = */rotateHorizontally(characterMatrix);
         //now, print out results
-        printOut("images/afterRotate.txt", characterMatrix);
+        printOut("images/output.txt", characterMatrix);
     }
 
     private static BufferedImage init()
@@ -137,6 +139,21 @@ public class App
         return result;
     }
 
+    private static /*char[][]*/ void rotateHorizontally(char[][] matrix)
+    {
+        //char[][] result = new char[matrix.length][matrix[0].length];
+
+        for (int i = 0; i < matrix.length; i++)
+        {
+            for (int j = 0; j < (matrix[0].length/2)-1; j++)
+            {
+                char temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length-j-1];
+                matrix[i][matrix.length-j-1] = temp;
+            }
+        }
+    }
+
     private static void printOut(String filename, char[][] characterMatrix)
     {
         PrintWriter pw = null;
@@ -148,7 +165,7 @@ public class App
         {
             for (int j = 0; j < characterMatrix[0].length; j++)
             {
-                pw.print(characterMatrix[i][j]);
+                pw.print(characterMatrix[i][j] + " ");
             }
             pw.println();
         }
