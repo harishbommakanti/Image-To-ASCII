@@ -1,8 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -30,6 +29,23 @@ public class App
         /*for (char[] i:characterMatrix)
             for (char j:i)
                 System.out.println(j);*/
+
+        //now, print out results
+        PrintWriter pw = null;
+        try{
+            pw = new PrintWriter(new FileWriter(new File("output.txt")));
+        } catch (IOException e){}
+
+        for (int i = 0; i < characterMatrix.length; i++)
+        {
+            for (int j = 0; j < characterMatrix[0].length; j++)
+            {
+                pw.print(characterMatrix[i][j]);
+            }
+            pw.println();
+        }
+        pw.close();
+        System.out.println("Image to ASCII successfull! check for a 'output.txt' file to see the results.");
     }
 
     private static BufferedImage init()

@@ -3,5 +3,6 @@
 *.iml
 out/
 
-# java.class files
+# java.class files, .output files
 *.class
+*output.txt
