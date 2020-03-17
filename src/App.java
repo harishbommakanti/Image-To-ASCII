@@ -14,11 +14,16 @@ public class App
 
         //generates a 3d matrix with a rgb array at each row/col
         int[][][] rgbTupleMatrix = generate2dMatrix(img);
-
         //testing the rgbTupleMatrix
         /*for (int[][] twoDmatrix : rgbTupleMatrix)
             for (int[] oneDmatrix : twoDmatrix)
                 System.out.println(Arrays.toString(oneDmatrix)); */
+
+        int[][] brightnessMatrix = generateBrightness(rgbTupleMatrix);
+        //testing the generateBrightness method
+        /*for (int[] arr : brightnessMatrix)
+            for (int brightness : arr)
+                System.out.println(brightness);*/
     }
 
     private static BufferedImage init()
@@ -62,5 +67,21 @@ public class App
         }
 
         return rgbMatrix;
+    }
+
+    private static int[][] generateBrightness(int[][][] mat)
+    {
+        int[][] result = new int[mat.length][mat[0].length]; //assume its a rectangular image
+
+        for (int i = 0; i < mat.length; i++)
+        {
+            for (int j = 0; j < mat[i].length; j++)
+            {
+                int[] rgb = mat[i][j];
+                int average = (int)(.21*rgb[0]+.72*rgb[1]+.07*rgb[2]); //formula to determine the brightness of current pixel
+                result[i][j] = average;
+            }
+        }
+        return result;
     }
 }
