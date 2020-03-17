@@ -24,6 +24,12 @@ public class App
         /*for (int[] arr : brightnessMatrix)
             for (int brightness : arr)
                 System.out.println(brightness);*/
+
+        char[][] characterMatrix = convertBrightnessToASCII(brightnessMatrix);
+        //testing that the brightness conversion worked
+        /*for (char[] i:characterMatrix)
+            for (char j:i)
+                System.out.println(j);*/
     }
 
     private static BufferedImage init()
@@ -80,6 +86,27 @@ public class App
                 int[] rgb = mat[i][j];
                 int average = (int)(.21*rgb[0]+.72*rgb[1]+.07*rgb[2]); //formula to determine the brightness of current pixel
                 result[i][j] = average;
+            }
+        }
+        return result;
+    }
+
+    private static char[][] convertBrightnessToASCII(int[][] matrix)
+    {
+        char[][] result = new char[matrix.length][matrix[0].length];
+
+        String characterArray = "`^\\\",:;Il!i~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"; //grabbed from internet to simulate brightness
+        for (int i=0;i<matrix.length;i++)
+        {
+            for (int j=0;j<matrix[0].length;j++)
+            {
+                //j is the brightness at the current pixel, need to convert that to an index for the character in the characterArray string
+
+                //0 should map to index of 0, 255 should map to index 67, 128 should map to 35. fraction = index/67, fractions should match up
+                double fraction = (double)matrix[i][j]/255;
+                //fraction = index/67, fractions should match up
+                int index = (int)(fraction*67);
+                result[i][j] = characterArray.charAt(index);
             }
         }
         return result;
