@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
@@ -11,7 +13,17 @@ public class ImageToASCII
     private static int height;
     public static void main(String[] args)
     {
-        BufferedImage img = init();
+        //initializes image with reading
+        BufferedImage beforeImg = init();
+        int beforeWidth = beforeImg.getWidth();
+        int beforeHeight = beforeImg.getHeight();
+
+        //resize picture to be smaller to fit in text viewers
+        BufferedImage img = new BufferedImage(beforeWidth,beforeHeight, BufferedImage.TYPE_INT_ARGB);
+        AffineTransform at = new AffineTransform();
+        at.scale(.33,.33);
+        AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        img = scaleOp.filter(beforeImg,img);
         width = img.getWidth();
         height = img.getHeight();
         //System.out.println(width + " " + height);
@@ -165,7 +177,7 @@ public class ImageToASCII
         {
             for (int j = 0; j < characterMatrix[0].length; j++)
             {
-                pw.print(characterMatrix[i][j] + " ");
+                pw.printf("%c%c%c",characterMatrix[i][j],characterMatrix[i][j],characterMatrix[i][j]); //print 3 times
             }
             pw.println();
         }
